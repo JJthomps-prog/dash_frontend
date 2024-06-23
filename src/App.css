@@ -1,0 +1,16 @@
+.Project {
+  display: block;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: space-around; 
+}
+
+.Project > div {
+  display: flex;
+  flex-direction: row; 
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
