@@ -15,4 +15,45 @@ code {
 .App {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.personal-content {
+  height: 50px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid gray;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding-right: 5%;
+}
+
+#bars{
+  margin-right: auto;
+  display:none;
+}
+
+.user-name{
+  margin: 0 3% 0 3%;
+}
+
+@media (max-width: 600px) {
+
+  .App {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #bars{
+    display: flex;
+  }
+
+  .user-name{
+    display:none;
+  }
+
+  #user{
+    margin-left: 5%;
+  }
 }

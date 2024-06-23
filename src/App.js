@@ -9,7 +9,7 @@ function App() {
     name: '',
     users: 0,
     dashboards: 0,
-    category: ''
+    category: 'A'
   });
   const [searchNotFound, setSearchNotFound] = useState(false);
 
@@ -66,7 +66,7 @@ function App() {
             setSearchNotFound(false);
           } else {
             setSearchNotFound(true);
-            setData([]);
+            setData([]); 
           }
         })
         .catch(error => {
@@ -75,7 +75,8 @@ function App() {
           setData([]);
         });
     } else {
-      fetchData();
+      fetchData(); 
+      setSearchNotFound(false);
     }
   };
 
@@ -86,7 +87,7 @@ function App() {
       .then(response => {
         console.log('Create Response:', response);
         fetchData(); // Refresh data after creating new project
-        setNewProject({ name: '', users: 0, dashboards: 0, category: '' });
+        setNewProject({ name: '', users: 0, dashboards: 0, category: 'A' });
       })
       .catch(error => {
         console.log(error.response.data.error)
@@ -99,8 +100,36 @@ function App() {
         <p>{error}</p>
       ) : data ? (
         <div>
-          <form onSubmit={handleSubmit}>
+          <div className='Welcome'>
+            <p style={{ fontSize: '30px', fontWeight: 'bold' }}>Hello Sarah!</p>
+            <p>Here you can find your projects and dashboards</p>
+          </div>
+          <div className='searchbar'>
             <input
+              type="text"
+              onChange={handleSearchChange}
+              placeholder="Search for a keyword"
+              className="search-input"
+            />
+            <svg className="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M21 21l-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+            </svg>
+          </div>
+          <p className='my-project-title'>My Projects</p>
+          <div className='Project'>
+            {searchNotFound ? (<p>Search Not Found</p>) : (data.map((project, index) => (
+              <div className={`project-item project-${project.category}`} key={index}>
+                <div className='project-item-front'></div>
+                <div className='project-category'><div>{project.category}</div></div>
+                <div className='project-name'>{project.name}</div>
+                <div className='project-users'>{project.users} Users</div>
+                <div className='project-dashboards'><div>{project.dashboards} Dashboards</div></div>
+                <div className='delete-button'><button onClick={() => handleDelete(project.name)}>Delete</button></div>
+              </div>
+            )))}
+          </div>
+          <form onSubmit={handleSubmit}>
+            Name:<input
               type="text"
               name="name"
               value={newProject.name}
@@ -108,7 +137,7 @@ function App() {
               placeholder="Name"
               required
             />
-            <input
+            Users:<input
               type="number"
               name="users"
               value={newProject.users}
@@ -116,7 +145,7 @@ function App() {
               placeholder="Users"
               required
             />
-            <input
+            Dashboards:<input
               type="number"
               name="dashboards"
               value={newProject.dashboards}
@@ -124,32 +153,22 @@ function App() {
               placeholder="Dashboards"
               required
             />
-            <input
-              type="text"
+            Category:
+            <select
               name="category"
               value={newProject.category}
               onChange={handleInputChange}
-              placeholder="Category"
               required
-            />
+            >
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+            </select>
             <button type="submit">Add Project</button>
           </form>
-          <input
-            type="text"
-            onChange={handleSearchChange}
-            placeholder="Search by name"
-          />
-          <div className='Project'>
-            {searchNotFound ? (<p>Search Not Found</p>) :(data.map((project, index) => (
-              <div className="project-item" key={index}>
-                <p>Name: {project.name}</p>
-                <p>Users: {project.users}</p>
-                <p>Dashboards: {project.dashboards}</p>
-                <p>Category: {project.category}</p>
-                <button onClick={() => handleDelete(project.name)}>Delete</button>
-              </div>
-            )))}
-          </div>
         </div>
       ) : (
         <p>Loading...</p>

@@ -1,16 +1,261 @@
-.Project {
-  display: block;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  justify-content: space-around; 
+body {
+  font-family: Arial, sans-serif;
 }
 
-.Project > div {
+.App {
+  padding: 0;
+  margin:0;
+}
+
+form {
   display: flex;
-  flex-direction: row; 
-  border: 1px solid #ccc;
-  margin: 10px;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+form input, form button {
   padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+form button {
+  background-color: #007BFF;
+  color: #fff;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+input[type="text"], input[type="number"] {
+  height:2rem;
+  margin-bottom: 10px;
+}
+
+input[type="text"]:nth-of-type(2), input[type="number"]:nth-of-type(2) {
+  margin-right: 10px;
+}
+
+input[type="text"]:nth-of-type(4), input[type="number"]:nth-of-type(4) {
+  margin-bottom: 0;
+}
+
+.Project {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 400px; /* Adjust the max-height as needed */
+  overflow-y: auto; /* Enable vertical scrollbar */
+  overflow-x: hidden;
+  padding-right: 20px;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  min-height:4rem;
+  width: 100%;
+  margin-bottom:0.5rem;
+}
+
+.project-item-front {
+  width: 3%;
+  margin: 0;
+  height: 4rem;
+  padding: 0;
+  background-color: rgb(58, 184, 184);
+}
+
+.project-category{
+  margin:0 0 0 3%;
+  padding:5px 5px 5px 5px;
+  width:5%;
+}
+
+.project-category > div {
+  padding: 10px;
+  background-color: #007BFF;
+  border-radius: 50%;
+  width: 1rem; 
+  height: 1rem; 
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  margin: 0 auto; 
+}
+
+
+.project-name {
+  font-weight: bold;
+  margin:0 0 0 10%;
+  padding:0;
+  width: 30%;
+}
+
+.project-users {
+  margin:0 0 0 30%;
+  width: 30%;
+  font-size: x-small;
+}
+
+.searchbar {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  width: 100%;
+}
+
+.search-input {
+  height: 36px;
+  padding-left: 30px; /* Space for the icon */
+  padding-right: 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-icon {
+  position: relative;
+  left: 30px; 
+  width: 20px; 
+  height: 20px; 
+  bottom: 5px;
+  fill: currentColor;
+  color: #888;
+  cursor: pointer;
+}
+
+
+button {
+  background-color: white;
+  color: #f44336;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.project-dashboards{
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.project-dashboards > div {
+  padding: 1% 4% 1% 4%;
+  background-color: aquamarine;
+  color: rgb(68, 145, 68);
+  border: 1px solid rgb(68, 145, 68);
+  border-radius: 5px;
+  font-size: x-small;
+}
+
+button:hover {
+  background-color: #d32f2f;
+}
+
+.Welcome{
+  display: none;
+}
+
+.my-project-title{
+  display: none;
+}
+
+/* Category specific styles */
+.project-A .project-item-front,
+.project-A .project-category > div {
+  background-color: #FF6347; 
+  color: #923120;
+}
+
+.project-B .project-item-front,
+.project-B .project-category > div {
+  background-color: #FFD700; 
+  color: #9d8812;
+}
+
+.project-C .project-item-front,
+.project-C .project-category > div {
+  background-color: #ADFF2F;
+  color: #76a82b;
+}
+
+.project-D .project-item-front,
+.project-D .project-category > div {
+  background-color: #1E90FF; /* Dodger Blue */
+  color: #0d3f74;
+}
+
+.project-E .project-item-front,
+.project-E .project-category > div {
+  background-color: #9370DB;
+  color:#5923c4;
+}
+
+.project-F .project-item-front,
+.project-F .project-category > div {
+  background-color: #FF69B4;
+  color: #a7125d;
+}
+
+@media (max-width: 600px) {
+  .Project{
+    width: 100%;
+  }
+
+  .searchbar{
+    width: 100%;
+  }
+  .project-item {
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    align-items: center;
+  }
+
+  .search-input{
+    width: 100%;
+  }
+  
+  .project-users{
+    display: none;
+  }
+
+  .project-dashboards{
+    display: none;
+  }
+
+  .project-name{
+    width: 50%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .delete-button{
+    margin-left:auto
+  }
+
+  .Welcome{
+    display: block;
+  }
+
+  .my-project-title{
+    display: block;
+  }
 }
