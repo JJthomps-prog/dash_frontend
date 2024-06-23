@@ -12,6 +12,7 @@ function App() {
     category: 'A'
   });
   const [searchNotFound, setSearchNotFound] = useState(false);
+  const [searchTimeout, setSearchTimeout] = useState(null); // State to hold timeout ID
 
   useEffect(() => {
     fetchData();
@@ -29,7 +30,8 @@ function App() {
         }
       })
       .catch(error => {
-        console.log(error.response.data.error)
+        console.log(error.response.data.error);
+        setError('Failed to fetch data');
       });
   };
 
@@ -57,25 +59,29 @@ function App() {
 
   const handleSearchChange = (e) => {
     const searchQuery = e.target.value.trim().toLowerCase();
+    clearTimeout(searchTimeout); // Clear previous timeout
+
     if (searchQuery) {
-      axios.get(`https://dashdash.azurewebsites.net/getDataByName/${searchQuery}`)
-        .then(response => {
-          console.log('Search Response:', response);
-          if (response.data && response.data.length > 0) {
-            setData(response.data);
-            setSearchNotFound(false);
-          } else {
+      setSearchTimeout(setTimeout(() => {
+        axios.get(`https://dashdash.azurewebsites.net/getDataByName/${searchQuery}`)
+          .then(response => {
+            console.log('Search Response:', response);
+            if (response.data && response.data.length > 0) {
+              setData(response.data);
+              setSearchNotFound(false);
+            } else {
+              setSearchNotFound(true);
+              setData([]);
+            }
+          })
+          .catch(error => {
+            console.log(error.response.data.error);
             setSearchNotFound(true);
-            setData([]); 
-          }
-        })
-        .catch(error => {
-          console.log(error.response.data.error);
-          setSearchNotFound(true);
-          setData([]);
-        });
+            setData([]);
+          });
+      }, 300)); // Debounce time set to 300ms, adjust as needed
     } else {
-      fetchData(); 
+      fetchData();
       setSearchNotFound(false);
     }
   };
@@ -90,7 +96,7 @@ function App() {
         setNewProject({ name: '', users: 0, dashboards: 0, category: 'A' });
       })
       .catch(error => {
-        console.log(error.response.data.error)
+        console.log(error.response.data.error);
       });
   };
 
